@@ -1,1 +1,7 @@
-
+:root {
+  --base-color: #1f6a96;
+}
+body {
+  margin: 0;
+  box-sizing: border-box;
+}
