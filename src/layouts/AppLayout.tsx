@@ -1,13 +1,13 @@
 import Navbar from "../components/shared/Navbar";
-import styles from "./AppLayout.module.css";
 import { Outlet } from "react-router-dom";
 import { useState, createContext, Dispatch, SetStateAction } from "react";
+import { Entry } from "../utils/interfaces";
 
 interface PodcasterContextInterface {
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
-  podcastList: string[];
-  setPodcastList: Dispatch<SetStateAction<string[]>>;
+  podcastList: Entry[];
+  setPodcastList: Dispatch<SetStateAction<Entry[]>>;
 }
 export const PodcasterContext = createContext<PodcasterContextInterface | null>(
   null
@@ -15,7 +15,7 @@ export const PodcasterContext = createContext<PodcasterContextInterface | null>(
 
 export default function App() {
   const [loading, setLoading] = useState(false);
-  const [podcastList, setPodcastList] = useState<string[]>([]);
+  const [podcastList, setPodcastList] = useState<Entry[]>([]);
 
   return (
     <PodcasterContext.Provider

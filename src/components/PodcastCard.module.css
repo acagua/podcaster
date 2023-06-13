@@ -1,11 +1,12 @@
 .card {
   margin-top: 2rem;
-  flex: 0 0 20rem;
+  flex: 0 0 19rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 15rem;
+  padding: 0 1rem;
 
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 }
@@ -13,13 +14,14 @@
 .circularCrop {
   border-radius: 50%;
   position: absolute;
+  border: 1px solid lightgrey;
 }
 
 .imageContainer {
   position: relative;
   width: 100%;
   top: -5rem;
-  left: 4.5rem;
+  left: 4rem;
 }
 
 .title {
