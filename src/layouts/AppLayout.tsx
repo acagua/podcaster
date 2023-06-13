@@ -1,4 +1,4 @@
-import styles from "./App.module.css";
+import styles from "./AppLayout.module.css";
 import { Outlet } from "react-router-dom";
 export default function App() {
   return (
