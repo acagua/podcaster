@@ -22,8 +22,6 @@ export default function App() {
       value={{ loading, setLoading, podcastList, setPodcastList }}
     >
       <Navbar />
-      <h1 className={styles.title}>Podcaster App</h1>
-      <div>Content</div>
       <main>
         <Outlet />
       </main>
