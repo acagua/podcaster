@@ -1,10 +1,10 @@
 .nav {
-  background-color: none;
   padding-bottom: 1rem;
   font-weight: 700;
   border-bottom: 1px solid #d6d6d6;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 2rem;
 }
 
 .link {

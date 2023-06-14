@@ -8,13 +8,14 @@ import ResultsCounter from "../components/ResultsCounter";
 import { getFilteredResults } from "../utils/filter";
 
 export default function Home() {
-  const context = useContext(PodcasterContext);
+  const { setLoading, podcastList, setPodcastList, filter } =
+    useContext(PodcasterContext);
 
   const fetchPodcasts = async () => {
-    context?.setLoading(true);
+    setLoading(true);
     const data = await loadPodcasts();
-    context?.setPodcastList(data);
-    context?.setLoading(false);
+    setPodcastList(data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -22,22 +23,17 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!context) {
-    return null;
-  }
   return (
-    <div className={styles.home}>
+    <>
       <div className={styles.filterContainer}>
         <ResultsCounter />
         <Filter />
       </div>
       <ul className={styles.podcasts}>
-        {getFilteredResults(context.podcastList, context.filter).map(
-          (podcast) => (
-            <PodcastCard key={podcast.id.label} podcast={podcast} />
-          )
-        )}
+        {getFilteredResults(podcastList, filter).map((podcast) => (
+          <PodcastCard key={podcast.id.label} podcast={podcast} />
+        ))}
       </ul>
-    </div>
+    </>
   );
 }

@@ -11,9 +11,21 @@ interface PodcasterContextInterface {
   filter: string;
   setFilter: Dispatch<SetStateAction<string>>;
 }
-export const PodcasterContext = createContext<PodcasterContextInterface | null>(
-  null
-);
+
+const initialContext: PodcasterContextInterface = {
+  loading: false,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setLoading: () => {},
+  podcastList: [],
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setPodcastList: () => {},
+  filter: "",
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setFilter: () => {},
+};
+
+export const PodcasterContext =
+  createContext<PodcasterContextInterface>(initialContext);
 
 export default function App() {
   const [loading, setLoading] = useState(false);

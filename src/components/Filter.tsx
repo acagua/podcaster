@@ -3,10 +3,10 @@ import styles from "./Filter.module.css";
 import { PodcasterContext } from "../layouts/AppLayout";
 
 export default function Filter() {
-  const context = useContext(PodcasterContext);
+  const { filter, setFilter } = useContext(PodcasterContext);
 
   const handleFilterInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    context?.setFilter(e.target.value);
+    setFilter(e.target.value);
   };
 
   return (
@@ -16,7 +16,7 @@ export default function Filter() {
       type="text"
       placeholder="Filter podcasts..."
       onChange={handleFilterInputChange}
-      value={context?.filter}
+      value={filter}
     />
   );
 }
