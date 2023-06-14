@@ -59,11 +59,9 @@ const fetchPodcastDetails = async (
 export async function loadPodcasts() {
   const storedProducts = getLocalStorage(podcastsEndpoint);
   if (storedProducts) {
-    console.log("no fetch needed data in store is valid");
     return storedProducts;
   }
   const podcasts = await fetchPodcasts(podcastsEndpoint, FETCH_RETRIES);
-  console.log("new fetch needed", podcasts);
   setLocalStorage(podcastsEndpoint, podcasts);
   return podcasts;
 }
@@ -75,11 +73,9 @@ export async function loadPodcastDetails(id: string) {
   const endpoint = `${podcastDetailsEndpoint}${id}`;
   const storedProducts = getLocalStorage(endpoint);
   if (storedProducts) {
-    console.log("no fetch needed data in store is valid");
     return storedProducts;
   }
   const podcastDetails = await fetchPodcastDetails(endpoint, FETCH_RETRIES);
-  console.log("new fetch needed", podcastDetails);
   setLocalStorage(endpoint, podcastDetails);
   return podcastDetails;
 }
