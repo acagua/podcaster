@@ -26,15 +26,27 @@ export default function Podcast() {
     <>
       <div className={styles.counter}>Episodes: {details?.resultCount}</div>
       <div className={styles.listContainer}>
-        <ul>
-          <li className={styles.listItem}>
-            <span>Title</span> <span>Date</span> <span>Duration</span>
-          </li>
+        <div className={styles.titles}>
+          <span className={styles.cell}>
+            <b>Title</b>
+          </span>
+          <span className={styles.cell}>
+            <b>Date</b>
+          </span>
+          <span className={styles.cell}>
+            <b>Duration</b>
+          </span>
+        </div>
+        <ul className={styles.episodes}>
           {details?.results.map((episode) => (
             <li key={episode.episodeGuid} className={styles.listItem}>
-              <span>{episode.trackName}</span>
-              <span>{getReadableDate(episode.releaseDate)}</span>
-              <span>{getReadableTime(episode.trackTimeMillis)}</span>
+              <span className={styles.cell}>{episode.trackName}</span>
+              <span className={styles.cell}>
+                {getReadableDate(episode.releaseDate)}
+              </span>
+              <span className={styles.cell}>
+                {getReadableTime(episode.trackTimeMillis)}
+              </span>
             </li>
           ))}
         </ul>
