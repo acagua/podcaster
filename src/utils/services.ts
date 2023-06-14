@@ -1,11 +1,11 @@
-import { Entry } from "./interfaces";
+import { Entry, PodcastDetails } from "./interfaces";
 import { getLocalStorage, setLocalStorage } from "./storage";
 
 const baseUrl = "https://itunes.apple.com";
 
 export const podcastsEndpoint = `${baseUrl}/us/rss/toppodcasts/limit=100/genre=1310/json`;
 
-export const podcastDetailsEndpoint = `${baseUrl}/lookup?id=`;
+export const podcastDetailsEndpoint = `${baseUrl}/lookup?entity=podcastEpisode&limit=1000&id=`;
 
 const FETCH_RETRIES = 3;
 
@@ -31,10 +31,18 @@ export const fetchPodcasts = async (
   }
 };
 
-export const fetchPodcastDetails = async (id: string) => {
-  const response = await fetch(`${podcastDetailsEndpoint}${id}`);
-  const data = await response.json();
-  return data;
+export const fetchPodcastDetails = async (
+  id: string
+): Promise<PodcastDetails | null> => {
+  if (!id) return null;
+  try {
+    const response = await fetch(`${podcastDetailsEndpoint}${id}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching podcast details", error);
+    return null;
+  }
 };
 
 export async function loadPodcasts() {
