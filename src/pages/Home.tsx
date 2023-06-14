@@ -16,8 +16,10 @@ export default function Home() {
     context?.setPodcastList(data);
     context?.setLoading(false);
   };
+
   useEffect(() => {
     fetchPodcasts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!context) {
