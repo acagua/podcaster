@@ -31,7 +31,7 @@ export default function Home() {
       </div>
       <ul className={styles.podcasts}>
         {getFilteredResults(podcastList, filter).map((podcast) => (
-          <PodcastCard key={podcast.id.label} podcast={podcast} />
+          <PodcastCard key={podcast.id.attributes["im:id"]} podcast={podcast} />
         ))}
       </ul>
     </>
