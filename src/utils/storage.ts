@@ -1,11 +1,14 @@
-import { Entry } from "./interfaces";
+import { Entry, PodcastDetails } from "./interfaces";
 
 const SECOND_IN_MS = 1000;
 const MINUTE_IN_MS = SECOND_IN_MS * 60;
 const HOUR_IN_MS = MINUTE_IN_MS * 60;
 const DAY_IN_MS = HOUR_IN_MS * 24;
 
-export const setLocalStorage = (key: string, data: Entry[]) => {
+export const setLocalStorage = (
+  key: string,
+  data: Entry[] | PodcastDetails | null
+) => {
   const currentDate = new Date();
 
   const apiResponse = {

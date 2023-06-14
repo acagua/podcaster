@@ -1,0 +1,20 @@
+.counter {
+  padding: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+.listContainer {
+  margin-top: 1.5rem;
+  height: 70dvh;
+  overflow-y: scroll;
+  width: 100%;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+.listItem {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  justify-content: space-between;
+}

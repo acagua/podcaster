@@ -35,16 +35,18 @@ export default function DetailsLayout() {
           alt="podcast"
         />
         <div className={styles.box}>
-          <p className={styles.text}>
+          <p className={styles.noMargin}>
             <b>{podcast?.["im:name"].label}</b>
           </p>
-          <p className={styles.text}>By {podcast?.["im:artist"].label}</p>
+          <p className={styles.noMargin}>
+            <i>by {podcast?.["im:artist"].label}</i>
+          </p>
         </div>
         <div className={styles.box}>
-          <p className={styles.text}>
+          <p className={`${styles.noMargin} ${styles.description}`}>
             <b>Description:</b>
           </p>
-          <p className={styles.text}>
+          <p className={styles.noMargin}>
             <i>{podcast?.summary.label}</i>
           </p>
         </div>

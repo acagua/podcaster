@@ -2,6 +2,11 @@
   --base-color: #1f6a96;
   font-family: sans-serif;
 }
+
+ul {
+  list-style-type: none;
+}
+
 body {
   margin: 0;
   box-sizing: border-box;
