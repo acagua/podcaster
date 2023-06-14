@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { PodcasterContext } from "../layouts/AppLayout";
 import { PodcastDetails } from "../utils/interfaces";
 import { loadPodcastDetails } from "../utils/services";
@@ -40,7 +40,12 @@ export default function Podcast() {
         <ul className={styles.episodes}>
           {details?.results.map((episode) => (
             <li key={episode.episodeGuid} className={styles.listItem}>
-              <span className={styles.cell}>{episode.trackName}</span>
+              <Link
+                className={styles.cell}
+                to={`episode/${episode.episodeGuid}`}
+              >
+                {episode.trackName}
+              </Link>
               <span className={styles.cell}>
                 {getReadableDate(episode.releaseDate)}
               </span>

@@ -34,8 +34,9 @@
   justify-content: space-between;
   background-color: white;
 }
-.listItem > span:first-child {
+.listItem > *:first-child {
   color: var(--base-color);
+  text-decoration: none;
 }
 
 .listItem:nth-child(odd) {
