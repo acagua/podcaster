@@ -1,30 +1,18 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
-import { PodcasterContext } from "../layouts/AppLayout";
-import { PodcastDetails } from "../utils/interfaces";
-import { loadPodcastDetails } from "../utils/services";
 import styles from "./Podcast.module.css";
-import { getReadableDate, getReadableTime } from "../utils/date";
+import { getReadableDate, msToHoursMinutes } from "../utils/date";
+import { EpisodesContext } from "../layouts/DetailsLayout";
+import { useLoadEpisodes } from "../hooks/useLoadEpisodes";
 export default function Podcast() {
   const { podcastId } = useParams<{ podcastId: string }>();
-  const { setLoading } = useContext(PodcasterContext);
-  const [details, setDetails] = useState<PodcastDetails | null>(null);
+  const { episodes } = useContext(EpisodesContext);
 
-  const fetchDetails = async () => {
-    setLoading(true);
-    const data = await loadPodcastDetails(podcastId || "");
-    setDetails(data);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchDetails();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useLoadEpisodes(podcastId || "");
 
   return (
     <>
-      <div className={styles.counter}>Episodes: {details?.resultCount}</div>
+      <div className={styles.counter}>Episodes: {episodes.length}</div>
       <div className={styles.listContainer}>
         <div className={styles.titles}>
           <span className={styles.cell}>
@@ -38,7 +26,7 @@ export default function Podcast() {
           </span>
         </div>
         <ul className={styles.episodes}>
-          {details?.results.map((episode) => (
+          {episodes.map((episode) => (
             <li key={episode.episodeGuid} className={styles.listItem}>
               <Link
                 className={styles.cell}
@@ -50,7 +38,7 @@ export default function Podcast() {
                 {getReadableDate(episode.releaseDate)}
               </span>
               <span className={styles.cell}>
-                {getReadableTime(episode.trackTimeMillis)}
+                {msToHoursMinutes(episode.trackTimeMillis)}
               </span>
             </li>
           ))}

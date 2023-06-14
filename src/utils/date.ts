@@ -7,10 +7,20 @@ export const getReadableDate = (date: string) => {
   });
 };
 
-export const getReadableTime = (time: number) => {
-  const dateObj = new Date(time);
-  return dateObj.toLocaleTimeString("es-ES", {
-    hour: "numeric",
-    minute: "numeric",
-  });
+//function to convert milliseconds to hours and minutes
+export const msToHoursMinutes2 = (duration: number) => {
+  const minutes = Math.floor((duration / (1000 * 60)) % 60);
+  const hours = Math.floor(duration / (1000 * 60 * 60));
+
+  return `${hours}:${minutes}`;
+};
+
+//format hours and minutes to hh:mm
+export const msToHoursMinutes = (duration: number) => {
+  const minutes = Math.floor((duration / (1000 * 60)) % 60);
+  const hours = Math.floor(duration / (1000 * 60 * 60));
+
+  return `${hours < 10 ? "0" + hours : hours}:${
+    minutes < 10 ? "0" + minutes : minutes
+  }`;
 };
