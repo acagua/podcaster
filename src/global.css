@@ -1,5 +1,6 @@
 :root {
   --base-color: #1f6a96;
+  font-family: sans-serif;
 }
 body {
   margin: 0;
