@@ -6,3 +6,9 @@
   margin: 0 -1rem;
   gap: 15rem 3rem;
 }
+
+.filterContainer {
+  display: flex;
+  justify-content: end;
+  margin: 2rem;
+}

@@ -1,6 +1,5 @@
 .filter {
   border: 1px solid #ccc;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 0.4rem;
-  margin: 2rem;
 }

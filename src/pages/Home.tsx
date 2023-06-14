@@ -4,6 +4,9 @@ import styles from "./Home.module.css";
 import { useContext, useEffect } from "react";
 import { loadPodcasts } from "../utils/services";
 import { PodcasterContext } from "../layouts/AppLayout";
+import ResultsCounter from "../components/ResultsCounter";
+import { getFilteredResults } from "../utils/filter";
+
 export default function Home() {
   const context = useContext(PodcasterContext);
 
@@ -17,13 +20,21 @@ export default function Home() {
     fetchPodcasts();
   }, []);
 
+  if (!context) {
+    return null;
+  }
   return (
     <div className={styles.home}>
-      <Filter />
+      <div className={styles.filterContainer}>
+        <ResultsCounter />
+        <Filter />
+      </div>
       <ul className={styles.podcasts}>
-        {context?.podcastList.map((podcast) => (
-          <PodcastCard key={podcast.id.label} podcast={podcast} />
-        ))}
+        {getFilteredResults(context.podcastList, context.filter).map(
+          (podcast) => (
+            <PodcastCard key={podcast.id.label} podcast={podcast} />
+          )
+        )}
       </ul>
     </div>
   );
