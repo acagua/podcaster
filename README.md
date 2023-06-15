@@ -4,7 +4,7 @@ This project was bootstrapped with [create vite](https://vitejs.dev/guide/), usi
 
 ## Scripts
 
-### `yarn start`
+### `yarn dev`
 
 Runs the app in the development mode.\
 

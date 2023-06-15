@@ -10,9 +10,12 @@ export default function Podcast() {
   const { setEpisodes } = useContext(EpisodesContext);
 
   useEffect(() => {
-    setEpisodes(podcastDetails.results);
+    setEpisodes(podcastDetails?.results);
   }, [podcastDetails, setEpisodes]);
 
+  if (!podcastDetails) {
+    return <div>Error fetching podcast details. Check console for details</div>;
+  }
   return (
     <>
       <div className={styles.counter}>

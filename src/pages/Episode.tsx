@@ -10,9 +10,12 @@ export default function Episode() {
   const { setEpisodes } = useContext(EpisodesContext);
 
   useEffect(() => {
-    setEpisodes(podcastDetails.results);
+    setEpisodes(podcastDetails?.results);
   }, [podcastDetails, setEpisodes]);
 
+  if (!podcastDetails) {
+    return <div>Error fetching episode details. Check console for details</div>;
+  }
   const currentEpisode = podcastDetails.results.find(
     (episode) => episode.episodeGuid === episodeId
   );
