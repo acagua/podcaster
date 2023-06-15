@@ -4,11 +4,19 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import Home from "../pages/Home";
 import AppLayout from "../layouts/AppLayout";
-import Podcast from "../pages/Podcast";
-import { Episode } from "../pages/Episode";
-import DetailsLayout from "../layouts/DetailsLayout";
+// import Home from "../pages/Home";
+// import Podcast from "../pages/Podcast";
+// import Episode from "../pages/Episode";
+// import DetailsLayout from "../layouts/DetailsLayout";
+import { lazy, Suspense } from "react";
+import Loader from "../components/shared/Loader";
+import { loadPodcastDetails, loadPodcasts } from "../utils/services";
+
+const LazyHome = lazy(() => import("../pages/Home"));
+const LazyPodcast = lazy(() => import("../pages/Podcast"));
+const LazyEpisode = lazy(() => import("../pages/Episode"));
+const LazyDetailsLayout = lazy(() => import("../layouts/DetailsLayout"));
 
 const router = createBrowserRouter([
   {
@@ -17,19 +25,39 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        loader: loadPodcasts,
+        element: (
+          <Suspense fallback={<Loader type="podcast" />}>
+            <LazyHome />
+          </Suspense>
+        ),
       },
       {
         path: "podcast/:podcastId",
-        element: <DetailsLayout />,
+        loader: loadPodcasts,
+        element: (
+          <Suspense fallback={<Loader type="podcast" />}>
+            <LazyDetailsLayout />
+          </Suspense>
+        ),
         children: [
           {
             path: "",
-            element: <Podcast />,
+            loader: ({ params }) => loadPodcastDetails(params.podcastId || ""),
+            element: (
+              <Suspense fallback={<Loader type="episode" />}>
+                <LazyPodcast />
+              </Suspense>
+            ),
           },
           {
             path: "episode/:episodeId",
-            element: <Episode />,
+            loader: ({ params }) => loadPodcastDetails(params.podcastId || ""),
+            element: (
+              <Suspense fallback={<Loader type="episode" />}>
+                <LazyEpisode />
+              </Suspense>
+            ),
           },
           {
             path: "*",

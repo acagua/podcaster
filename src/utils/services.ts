@@ -57,9 +57,9 @@ const fetchPodcastDetails = async (
 };
 
 export async function loadPodcasts() {
-  const storedProducts = getLocalStorage(podcastsEndpoint);
-  if (storedProducts) {
-    return storedProducts;
+  const storedData = getLocalStorage(podcastsEndpoint);
+  if (storedData) {
+    return storedData;
   }
   const podcasts = await fetchPodcasts(podcastsEndpoint, FETCH_RETRIES);
   setLocalStorage(podcastsEndpoint, podcasts);
@@ -71,9 +71,9 @@ export async function loadPodcastDetails(id: string) {
     return null;
   }
   const endpoint = `${podcastDetailsEndpoint}${id}`;
-  const storedProducts = getLocalStorage(endpoint);
-  if (storedProducts) {
-    return storedProducts;
+  const storedData = getLocalStorage(endpoint);
+  if (storedData) {
+    return storedData;
   }
   const podcastDetails = await fetchPodcastDetails(endpoint, FETCH_RETRIES);
   setLocalStorage(endpoint, podcastDetails);

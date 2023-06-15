@@ -3,14 +3,14 @@ import {
   SetStateAction,
   createContext,
   useContext,
+  useEffect,
   useState,
 } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useLoaderData, useParams } from "react-router-dom";
 
 import styles from "./DetailsLayout.module.css";
-import { Episode } from "../utils/interfaces";
+import { Entry, Episode } from "../utils/interfaces";
 import { PodcasterContext } from "./AppLayout";
-import { useLoadPodcasts } from "../hooks/useLoadPodcasts";
 
 interface EpisodesContextInterface {
   episodes: Episode[];
@@ -24,13 +24,15 @@ const initialContext = {
 export const EpisodesContext =
   createContext<EpisodesContextInterface>(initialContext);
 export default function DetailsLayout() {
+  const podcasts = useLoaderData() as Entry[];
   const { podcastId } = useParams<{ podcastId: string }>();
-  const { podcastList } = useContext(PodcasterContext);
+  const { setPodcastList } = useContext(PodcasterContext);
   const [episodes, setEpisodes] = useState<Episode[]>([]);
+  useEffect(() => {
+    setPodcastList(podcasts);
+  }, [podcasts, setPodcastList]);
 
-  useLoadPodcasts();
-
-  const podcast = podcastList.find(
+  const podcast = podcasts.find(
     (podcast) => podcast.id.attributes["im:id"] === podcastId
   );
   return (

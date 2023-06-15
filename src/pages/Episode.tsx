@@ -1,17 +1,19 @@
-import { useParams } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import styles from "./Episode.module.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { EpisodesContext } from "../layouts/DetailsLayout";
-import { useLoadEpisodes } from "../hooks/useLoadEpisodes";
-export function Episode() {
+import { PodcastDetails } from "../utils/interfaces";
+export default function Episode() {
+  const podcastDetails = useLoaderData() as PodcastDetails;
   const params = useParams();
   const episodeId = params.episodeId;
-  const { podcastId } = useParams<{ podcastId: string }>();
-  const { episodes } = useContext(EpisodesContext);
+  const { setEpisodes } = useContext(EpisodesContext);
 
-  useLoadEpisodes(podcastId || "");
+  useEffect(() => {
+    setEpisodes(podcastDetails.results);
+  }, [podcastDetails, setEpisodes]);
 
-  const currentEpisode = episodes.find(
+  const currentEpisode = podcastDetails.results.find(
     (episode) => episode.episodeGuid === episodeId
   );
 

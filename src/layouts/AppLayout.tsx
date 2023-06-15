@@ -3,9 +3,13 @@ import { Outlet } from "react-router-dom";
 import { useState, createContext, Dispatch, SetStateAction } from "react";
 import { Entry } from "../utils/interfaces";
 
+interface Loader {
+  podcasts: boolean;
+  episodes: boolean;
+}
 interface PodcasterContextInterface {
-  loading: boolean;
-  setLoading: Dispatch<SetStateAction<boolean>>;
+  loading: Loader;
+  setLoading: Dispatch<SetStateAction<Loader>>;
   podcastList: Entry[];
   setPodcastList: Dispatch<SetStateAction<Entry[]>>;
   filter: string;
@@ -13,7 +17,7 @@ interface PodcasterContextInterface {
 }
 
 const initialContext: PodcasterContextInterface = {
-  loading: false,
+  loading: { podcasts: false, episodes: false },
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   setLoading: () => {},
   podcastList: [],
@@ -28,7 +32,10 @@ export const PodcasterContext =
   createContext<PodcasterContextInterface>(initialContext);
 
 export default function App() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<Loader>({
+    podcasts: false,
+    episodes: false,
+  });
   const [podcastList, setPodcastList] = useState<Entry[]>([]);
   const [filter, setFilter] = useState("");
 
