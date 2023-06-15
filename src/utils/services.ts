@@ -40,6 +40,15 @@ const fetchPodcastDetails = async (
   try {
     const response = await fetch(endpoint);
     const data = await response.json();
+
+    if (!data.results) {
+      return {
+        ...data,
+        results: data.contents.results.filter(
+          (result: Episode) => result.kind === KIND_EPISODE
+        ),
+      };
+    }
     return {
       ...data,
       results: data.results.filter(
@@ -51,6 +60,13 @@ const fetchPodcastDetails = async (
     if (retries > 0) {
       console.log("retrying...", "retries left:" + (retries - 1));
       return fetchPodcastDetails(endpoint, retries - 1);
+    }
+    if (retries === 0) {
+      console.log("Retrying with cors bypass service");
+      return fetchPodcastDetails(
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(endpoint)}`,
+        -1
+      );
     }
     return null;
   }
